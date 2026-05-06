@@ -6,6 +6,9 @@ import config
 from brain.llm import Brain
 from memory.db import memory
 from voice.tts import tts
+from proactive import proactive_scheduler, notification_manager
+from notifications import notifier
+from learning import learning
 from utils import logger
 
 class ClawVis:
@@ -23,12 +26,18 @@ class ClawVis:
         
         self.brain = Brain()
         
-        self.start_scheduler()
+        self.start_proactive()
         
         tts.speak_async("ClawVis activated. Say Jarvis to begin.")
         logger.info("ClawVis is ready. Say 'Jarvis' to activate!")
         
         self.main_loop()
+
+    def start_proactive(self):
+        proactive_scheduler.on_notification(notification_manager.check)
+        proactive_scheduler.start()
+        notifier.start()
+        logger.info("Proactive system started")
 
     def start_scheduler(self):
         def run_schedule():
@@ -46,6 +55,7 @@ class ClawVis:
                 time.sleep(1)
         except KeyboardInterrupt:
             logger.info("Shutting down...")
+            proactive_scheduler.stop()
             self.running = False
 
 def main():
