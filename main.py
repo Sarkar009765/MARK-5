@@ -6,8 +6,8 @@ import config
 from brain.llm import Brain
 from memory.db import memory
 from voice.tts import tts
-from proactive import proactive_scheduler, notification_manager
-from notifications import notifier
+from proactive import proactive_scheduler
+from notifications import notifier, notification_manager
 from learning import learning
 from telegram_bot import init_telegram
 from utils import logger
