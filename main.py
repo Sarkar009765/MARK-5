@@ -9,6 +9,7 @@ from voice.tts import tts
 from proactive import proactive_scheduler, notification_manager
 from notifications import notifier
 from learning import learning
+from telegram_bot import init_telegram
 from utils import logger
 
 class ClawVis:
@@ -16,6 +17,7 @@ class ClawVis:
         self.running = False
         self.scheduler_thread = None
         self.brain = None
+        self.telegram = None
 
     def start(self):
         self.running = True
@@ -26,12 +28,20 @@ class ClawVis:
         
         self.brain = Brain()
         
+        self.start_telegram()
+        
         self.start_proactive()
         
         tts.speak_async("ClawVis activated. Say Jarvis to begin.")
         logger.info("ClawVis is ready. Say 'Jarvis' to activate!")
         
         self.main_loop()
+
+    def start_telegram(self):
+        if config.TELEGRAM_BOT_TOKEN:
+            self.telegram = init_telegram(self.brain)
+            self.telegram.start()
+            logger.info("Telegram bot started")
 
     def start_proactive(self):
         proactive_scheduler.on_notification(notification_manager.check)
@@ -56,6 +66,8 @@ class ClawVis:
         except KeyboardInterrupt:
             logger.info("Shutting down...")
             proactive_scheduler.stop()
+            if self.telegram:
+                self.telegram.stop()
             self.running = False
 
 def main():
