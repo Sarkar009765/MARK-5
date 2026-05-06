@@ -10,3 +10,4 @@ pyaudio>=0.2.14
 google-generativeai>=0.3.0
 python-telegram-bot>=20.6
 pywin32>=306
+psutil>=5.9.0
