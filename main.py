@@ -6,10 +6,12 @@ import config
 from brain.llm import Brain
 from memory.db import memory
 from voice.tts import tts
+from voice import start_voice, stop_voice
 from proactive import proactive_scheduler
 from notifications import notifier, notification_manager
 from learning import learning
 from telegram_bot import init_telegram
+from web_ui import start_web_ui
 from utils import logger
 
 class ClawVis:
@@ -32,6 +34,11 @@ class ClawVis:
         
         self.start_proactive()
         
+        self.start_voice()
+        
+        # Start the Web UI
+        start_web_ui(self.brain, auto_open=True)
+        
         tts.speak_async("ClawVis activated. Say Jarvis to begin.")
         logger.info("ClawVis is ready. Say 'Jarvis' to activate!")
         
@@ -48,6 +55,14 @@ class ClawVis:
         proactive_scheduler.start()
         notifier.start()
         logger.info("Proactive system started")
+
+    def start_voice(self):
+        try:
+            start_voice(self.brain)
+            logger.info("Voice system started")
+        except Exception as e:
+            logger.warning(f"Voice system unavailable: {e}")
+            logger.info("Running in text-only mode")
 
     def start_scheduler(self):
         def run_schedule():
@@ -66,6 +81,7 @@ class ClawVis:
         except KeyboardInterrupt:
             logger.info("Shutting down...")
             proactive_scheduler.stop()
+            stop_voice()
             if self.telegram:
                 self.telegram.stop()
             self.running = False

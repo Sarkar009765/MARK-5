@@ -1,12 +1,25 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=[],
+    datas=[
+        ('data', 'data'),
+        ('.env', '.'),
+        ('templates', 'templates'),
+    ],
+    hiddenimports=[
+        'brain', 'brain.llm', 'brain.prompts',
+        'voice', 'voice.tts', 'voice.stt', 'voice.wakeword',
+        'tools', 'tools.base', 'tools.system', 'tools.browser', 'tools.files', 'tools.web',
+        'memory', 'memory.db',
+        'pyttsx3', 'pyttsx3.drivers', 'pyttsx3.drivers.sapi5',
+        'tinydb', 'google.generativeai',
+        'psutil', 'pyautogui', 'pyperclip',
+        'telegram', 'telegram.ext',
+        'flask', 'werkzeug', 'jinja2',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -14,6 +27,7 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -35,4 +49,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=None,
 )

@@ -52,9 +52,10 @@ class STT:
             stream.close()
             p.terminate()
             
+            import json as _json
             audio_data = b"".join(frames)
             if self.recognizer.AcceptWaveform(audio_data):
-                result = eval(self.recognizer.Result())
+                result = _json.loads(self.recognizer.Result())
                 text = result.get("text", "")
                 logger.info(f"Recognized: {text}")
                 return text

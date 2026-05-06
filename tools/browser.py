@@ -1,5 +1,6 @@
 import os
 import asyncio
+import webbrowser
 from tools.base import Tool, registry
 from utils import logger
 
