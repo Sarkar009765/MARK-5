@@ -1,77 +1,92 @@
-# ClawVis - Personal AI Assistant
+# ClawVis
 
-Version: 1.0 | May 2026
+**Ultra-Lightweight Personal AI Agent**  
+*Jarvis × OpenClaw × Hermes × Paperclip*
 
-ClawVis is an ultra-lightweight personal AI agent that runs on your PC with ≤2.2GB RAM.
+A smart, proactive, voice-enabled personal AI that runs smoothly on low-end PCs (even 4GB RAM).
 
-## Features
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)
 
-- Wake word voice activation ("Jarvis")
-- British-style witty personality
-- Computer control (apps, browser, files)
-- Telegram bot integration
-- Proactive notifications
-- Simple self-learning
-- Auto-start on boot
+## ✨ Features
 
-## Tech Stack
+- **Voice Interaction** — Wake word "Jarvis" with natural conversation
+- **Proactive Assistant** — Paperclip-style suggestions and reminders
+- **Real Computer Control** — Open apps, control browser, file management, web research
+- **Telegram Bot** — Control from mobile
+- **Multi-Language** — English + Bengali
+- **Self-Learning** — Learns from your usage
+- **Ultra Lightweight** — Runs on 4GB RAM PCs
 
-- LLM: Gemini 2.0 Flash
-- TTS: pyttsx3 (lightweight)
-- Tools: subprocess, pyautogui
-- Memory: TinyDB
+## 🛠️ Tech Stack
 
-## Quick Start
+- **Brain**: LiteLLM + Gemini 2.5 Flash (with fallback)
+- **Voice**: Vosk (STT) + Piper TTS
+- **Tools**: Playwright, subprocess
+- **Memory**: TinyDB + JSON
+- **Interface**: Local Voice + Telegram
+
+## 📁 Project Structure
 
 ```bash
+clawvis/
+├── main.py
+├── config.py
+├── requirements.txt
+├── .env.example
+├── voice/
+├── brain/
+├── tools/
+├── memory/
+├── notifications.py
+├── telegram_bot.py
+├── utils.py
+├── scripts/
+└── docs/
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.10+
+- Git
+- Microphone (for voice)
+
+### Installation
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/Sarkar009765/MARK-5.git
+cd MARK-5
+
+# 2. Create virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
-cp .env.example .env
-# Add your API keys to .env
+
+# 4. Copy and configure environment
+copy .env.example .env
+# Edit .env file and add your Gemini API key
+```
+
+### Run
+
+```bash
 python main.py
 ```
 
-## Configuration (.env)
+## 📄 License
 
-```
-GEMINI_API_KEY=your_gemini_key
-TELEGRAM_BOT_TOKEN=your_bot_token
-TELEGRAM_USER_ID=your_user_id
-```
+MIT License - Free to use, modify, and distribute.
 
-## Voice Commands
+## 🤝 Contributing
 
-- Say "Jarvis" to activate
-- "Search [query]" - Web search
-- "Open [app]" - Open application
-- "System info" - Check CPU/memory
-- "Screenshot" - Take screenshot
-- "Volume up/down" - Control volume
+Contributions are welcome!
 
-## Telegram Commands
+---
 
-- /start - Start bot
-- /help - Show help
-- /status - System status
-- /voice - Activate voice mode
-
-## Auto-Start
-
-Run `scripts\auto_start.bat` to enable auto-start on Windows boot.
-
-## Building .exe
-
-```bash
-pip install pyinstaller
-pyinstaller clawvis.spec
-```
-
-## Requirements
-
-- Python 3.10+
-- Windows 10/11
-- ~2GB RAM free
-- Internet for API calls
-
-## License
-
-MIT
+Made with ❤️ for low-end PCs
